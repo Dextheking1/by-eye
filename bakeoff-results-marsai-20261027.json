@@ -1,0 +1,113 @@
+{
+  "results": [
+    {
+      "label": "marsai-claude-opus-5-5",
+      "model": "marsai/claude-opus-5-5",
+      "base_url": "https://marsai.click/v1",
+      "task_a_completion": {
+        "format_ok": true,
+        "ids_scored": 6,
+        "mae_percent": 31.5,
+        "within_25": 4,
+        "band_coverage": 5,
+        "detail": {
+          "glass_noodles_dry": {
+            "truth": 40.0,
+            "amount": 100.0,
+            "err_percent": 150.0,
+            "band": [
+              75.0,
+              125.0
+            ],
+            "band_holds": false
+          },
+          "chicken": {
+            "truth": 170.0,
+            "amount": 180.0,
+            "err_percent": 5.9,
+            "band": [
+              140.0,
+              240.0
+            ],
+            "band_holds": true
+          },
+          "cabbage": {
+            "truth": 1.0,
+            "amount": 1.0,
+            "err_percent": 0.0,
+            "band": [
+              0.75,
+              1.5
+            ],
+            "band_holds": true
+          },
+          "oyster_sauce": {
+            "truth": 15.0,
+            "amount": 15.0,
+            "err_percent": 0.0,
+            "band": [
+              10.0,
+              22.0
+            ],
+            "band_holds": true
+          },
+          "sugar": {
+            "truth": 7.5,
+            "amount": 5.0,
+            "err_percent": 33.3,
+            "band": [
+              2.5,
+              8.0
+            ],
+            "band_holds": true
+          },
+          "water": {
+            "truth": 30.0,
+            "amount": 30.0,
+            "err_percent": 0.0,
+            "band": [
+              15.0,
+              60.0
+            ],
+            "band_holds": true
+          }
+        },
+        "latency_s": 19.3,
+        "usage": {
+          "prompt_tokens": 463,
+          "completion_tokens": 470,
+          "total_tokens": 933
+        },
+        "raw": "[\n  {\n    \"ingredient_id\": \"glass_noodles_dry\",\n    \"amount\": 100,\n    \"band_low\": 75,\n    \"band_high\": 125\n  },\n  {\n    \"ingredient_id\": \"chicken\",\n    \"amount\": 180,\n    \"band_low\": 140,\n    \"band_high\": 240\n  },\n  {\n    \"ingredient_id\": \"cabbage\",\n    \"amount\": 1,\n    \"band_low\": 0.75,\n    \"band_high\": 1.5\n  },\n  {\n    \"ingredient_id\": \"oyster_sauce\",\n    \"amount\": 15,\n    \"band_low\": 10,\n    \"band_high\": 22\n  },\n  {\n    \"ingredient_id\": \"sugar\",\n    \"amount\": 5,\n    \"band_low\": 2.5,\n    \"band_high\": 8\n  },\n  {\n    \"ingredient_id\": \"water\",\n    \"amount\": 30,\n    \"band_low\": 15,\n    \"band_high\": 60\n  }\n]",
+        "attempts": 1
+      },
+      "task_c_strike": {
+        "format_ok": true,
+        "decisions_correct": 4,
+        "decisions_total": 6,
+        "publish": [
+          "eggs"
+        ],
+        "strike": [
+          "cabbage",
+          "chicken",
+          "oyster_sauce",
+          "water",
+          "white_pepper"
+        ],
+        "latency_s": 21.5,
+        "usage": {
+          "prompt_tokens": 271,
+          "completion_tokens": 358,
+          "total_tokens": 629
+        },
+        "raw": "{\"publish\":[\"eggs\"],\"strike\":[\"chicken\",\"oyster_sauce\",\"white_pepper\",\"water\",\"cabbage\"]}",
+        "attempts": 1
+      },
+      "total_usage": {
+        "prompt_tokens": 734,
+        "completion_tokens": 828
+      }
+    }
+  ]
+}
