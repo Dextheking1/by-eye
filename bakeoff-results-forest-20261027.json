@@ -1,0 +1,219 @@
+{
+  "results": [
+    {
+      "label": "forest-deepseek-v4.1-flash",
+      "model": "china/DeepSeek-V4.1-Flash",
+      "base_url": "https://theforestproxy.pages.dev/v1",
+      "task_a_completion": {
+        "format_ok": true,
+        "ids_scored": 6,
+        "mae_percent": 54.4,
+        "within_25": 2,
+        "band_coverage": 5,
+        "detail": {
+          "glass_noodles_dry": {
+            "truth": 40.0,
+            "amount": 120.0,
+            "err_percent": 200.0,
+            "band": [
+              100.0,
+              150.0
+            ],
+            "band_holds": false
+          },
+          "chicken": {
+            "truth": 170.0,
+            "amount": 175.0,
+            "err_percent": 2.9,
+            "band": [
+              150.0,
+              200.0
+            ],
+            "band_holds": true
+          },
+          "cabbage": {
+            "truth": 1.0,
+            "amount": 1.5,
+            "err_percent": 50.0,
+            "band": [
+              1.0,
+              2.0
+            ],
+            "band_holds": true
+          },
+          "oyster_sauce": {
+            "truth": 15.0,
+            "amount": 20.0,
+            "err_percent": 33.3,
+            "band": [
+              15.0,
+              30.0
+            ],
+            "band_holds": true
+          },
+          "sugar": {
+            "truth": 7.5,
+            "amount": 7.0,
+            "err_percent": 6.7,
+            "band": [
+              5.0,
+              10.0
+            ],
+            "band_holds": true
+          },
+          "water": {
+            "truth": 30.0,
+            "amount": 20.0,
+            "err_percent": 33.3,
+            "band": [
+              15.0,
+              30.0
+            ],
+            "band_holds": true
+          }
+        },
+        "latency_s": 49.7,
+        "usage": {
+          "completion_tokens": 954,
+          "prompt_tokens": 499,
+          "prompt_tokens_details": null,
+          "total_tokens": 1453,
+          "reasoning_tokens": 707
+        },
+        "attempts": 1,
+        "raw": "[\n  {\n    \"ingredient_id\": \"glass_noodles_dry\",\n    \"amount\": 120,\n    \"band_low\": 100,\n    \"band_high\": 150\n  },\n  {\n    \"ingredient_id\": \"chicken\",\n    \"amount\": 175,\n    \"band_low\": 150,\n    \"band_high\": 200\n  },\n  {\n    \"ingredient_id\": \"cabbage\",\n    \"amount\": 1.5,\n    \"band_low\": 1.0,\n    \"band_high\": 2.0\n  },\n  {\n    \"ingredient_id\": \"oyster_sauce\",\n    \"amount\": 20,\n    \"band_low\": 15,\n    \"band_high\": 30\n  },\n  {\n    \"ingredient_id\": \"sugar\",\n    \"amount\": 7,\n    \"band_low\": 5,\n    \"band_high\": 10\n  },\n  {\n    \"ingredient_id\": \"water\",\n    \"amount\": 20,\n    \"band_low\": 15,\n    \"band_high\": 30\n  }\n]"
+      },
+      "task_c_strike": {
+        "format_ok": true,
+        "decisions_correct": 6,
+        "decisions_total": 6,
+        "publish": [
+          "chicken",
+          "eggs",
+          "oyster_sauce"
+        ],
+        "strike": [
+          "cabbage",
+          "water",
+          "white_pepper"
+        ],
+        "latency_s": 51.9,
+        "usage": {
+          "completion_tokens": 463,
+          "prompt_tokens": 302,
+          "prompt_tokens_details": null,
+          "total_tokens": 765,
+          "reasoning_tokens": 426
+        },
+        "attempts": 1,
+        "raw": "{\"publish\": [\"eggs\", \"chicken\", \"oyster_sauce\"], \"strike\": [\"white_pepper\", \"water\", \"cabbage\"]}"
+      },
+      "total_usage": {
+        "prompt_tokens": 801,
+        "completion_tokens": 1417
+      }
+    },
+    {
+      "label": "forest-glm-5.3",
+      "model": "china/glm-5.3",
+      "base_url": "https://theforestproxy.pages.dev/v1",
+      "task_a_completion": {
+        "format_ok": true,
+        "ids_scored": 6,
+        "mae_percent": 34.6,
+        "within_25": 5,
+        "band_coverage": 5,
+        "detail": {
+          "glass_noodles_dry": {
+            "truth": 40.0,
+            "amount": 100.0,
+            "err_percent": 150.0,
+            "band": [
+              75.0,
+              140.0
+            ],
+            "band_holds": false
+          },
+          "chicken": {
+            "truth": 170.0,
+            "amount": 200.0,
+            "err_percent": 17.6,
+            "band": [
+              140.0,
+              280.0
+            ],
+            "band_holds": true
+          },
+          "cabbage": {
+            "truth": 1.0,
+            "amount": 1.0,
+            "err_percent": 0.0,
+            "band": [
+              0.5,
+              1.75
+            ],
+            "band_holds": true
+          },
+          "oyster_sauce": {
+            "truth": 15.0,
+            "amount": 12.0,
+            "err_percent": 20.0,
+            "band": [
+              7.0,
+              20.0
+            ],
+            "band_holds": true
+          },
+          "sugar": {
+            "truth": 7.5,
+            "amount": 6.0,
+            "err_percent": 20.0,
+            "band": [
+              3.0,
+              12.0
+            ],
+            "band_holds": true
+          },
+          "water": {
+            "truth": 30.0,
+            "amount": 30.0,
+            "err_percent": 0.0,
+            "band": [
+              15.0,
+              60.0
+            ],
+            "band_holds": true
+          }
+        },
+        "latency_s": 32.9,
+        "usage": {
+          "prompt_tokens": 503,
+          "completion_tokens": 795,
+          "total_tokens": 1298,
+          "prompt_tokens_details": {
+            "audio_tokens": null,
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 607,
+            "rejected_prediction_tokens": null
+          }
+        },
+        "attempts": 1,
+        "raw": "[\n  {\"ingredient_id\": \"glass_noodles_dry\", \"amount\": 100, \"band_low\": 75, \"band_high\": 140},\n  {\"ingredient_id\": \"chicken\", \"amount\": 200, \"band_low\": 140, \"band_high\": 280},\n  {\"ingredient_id\": \"cabbage\", \"amount\": 1.0, \"band_low\": 0.5, \"band_high\": 1.75},\n  {\"ingredient_id\": \"oyster_sauce\", \"amount\": 12, \"band_low\": 7, \"band_high\": 20},\n  {\"ingredient_id\": \"sugar\", \"amount\": 6, \"band_low\": 3, \"band_high\": 12},\n  {\"ingredient_id\": \"water\", \"amount\": 30, \"band_low\": 15, \"band_high\": 60}\n]"
+      },
+      "task_c_strike": {
+        "format_ok": false,
+        "access_failure": true,
+        "error": "HTTPError: HTTP Error 524: <none>",
+        "attempts": 2
+      },
+      "total_usage": {
+        "prompt_tokens": 503,
+        "completion_tokens": 795
+      }
+    }
+  ]
+}
