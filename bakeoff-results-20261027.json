@@ -1,0 +1,243 @@
+{
+  "dish": "Pad Woon Sen (glass noodle stir fry)",
+  "results": [
+    {
+      "label": "baseten-muse-spark-open",
+      "model": "meta-models/muse-spark-open-1026",
+      "base_url": "https://inference.baseten.co/v1",
+      "task_a_completion": {
+        "format_ok": true,
+        "ids_scored": 6,
+        "mae_percent": 40.7,
+        "within_25": 4,
+        "band_coverage": 5,
+        "detail": {
+          "glass_noodles_dry": {
+            "truth": 40.0,
+            "amount": 100.0,
+            "err_percent": 150.0,
+            "band": [
+              75.0,
+              130.0
+            ],
+            "band_holds": false
+          },
+          "chicken": {
+            "truth": 170.0,
+            "amount": 200.0,
+            "err_percent": 17.6,
+            "band": [
+              140.0,
+              280.0
+            ],
+            "band_holds": true
+          },
+          "cabbage": {
+            "truth": 1.0,
+            "amount": 1.5,
+            "err_percent": 50.0,
+            "band": [
+              1.0,
+              2.2
+            ],
+            "band_holds": true
+          },
+          "oyster_sauce": {
+            "truth": 15.0,
+            "amount": 16.0,
+            "err_percent": 6.7,
+            "band": [
+              10.0,
+              22.0
+            ],
+            "band_holds": true
+          },
+          "sugar": {
+            "truth": 7.5,
+            "amount": 6.0,
+            "err_percent": 20.0,
+            "band": [
+              3.0,
+              10.0
+            ],
+            "band_holds": true
+          },
+          "water": {
+            "truth": 30.0,
+            "amount": 30.0,
+            "err_percent": 0.0,
+            "band": [
+              15.0,
+              45.0
+            ],
+            "band_holds": true
+          }
+        },
+        "latency_s": 9.0,
+        "usage": {
+          "prompt_tokens": 638,
+          "completion_tokens": 3354,
+          "total_tokens": 3992,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 128
+          },
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 2617,
+            "audio_tokens": 0,
+            "reasoning_tokens": 2910,
+            "rejected_prediction_tokens": 2549
+          }
+        },
+        "raw": "[{\"ingredient_id\":\"soy_sauce_marinade\",\"amount\":5.0,\"band_low\":2.0,\"band_high\":10.0},{\"ingredient_id\":\"garlic\",\"amount\":3.0,\"band_low\":1.5,\"band_high\":4.0},{\"ingredient_id\":\"onion\",\"amount\":0.5,\"band_low\":0.3,\"band_high\":0.8},{\"ingredient_id\":\"eggs\",\"amount\":2.0,\"band_low\":2.0,\"band_high\":2.0},{\"ingredient_id\":\"carrots\",\"amount\":0.4,\"band_low\":0.2,\"band_high\":0.6},{\"ingredient_id\":\"white_pepper\",\"amount\":0.25,\"band_low\":0.1,\"band_high\":0.5},{\"ingredient_id\":\"tomato\",\"amount\":1.0,\"band_low\":1.0,\"band_high\":1.0},{\"ingredient_id\":\"green_onion\",\"amount\":1.0,\"band_low\":1.0,\"band_high\":1.0},{\"ingredient_id\":\"soy_sauce\",\"amount\":8.0,\"band_low\":5.0,\"band_high\":13.0},{\"ingredient_id\":\"golden_mountain_sauce\",\"amount\":7.0,\"band_low\":4.0,\"band_high\":12.0},{\"ingredient_id\":\"glass_noodles_dry\",\"amount\":100.0,\"band_low\":75.0,\"band_high\":130.0},{\"ingredient_id\":\"chicken\",\"amount\":200.0,\"band_low\":140.0,\"band_high\":280.0},{\"ingredient_id\":\"cabbage\",\"amount\":1.5,\"band_low\":1.0,\"band_high\":2.2},{\"ingredient_id\":\"oyster_sauce\",\"amount\":16.0,\"band_low\":10.0,\"band_high\":22.0},{\"ingredient_id\":\"sugar\",\"amount\":6.0,\"band_low\":3.0,\"band_high\":10.0},{\"ingredient_id\":\"water\",\"amount\":30.0,\"band_low\":15.0,\"band_high\":45.0}]"
+      },
+      "task_b_calibration": {
+        "format_ok": false,
+        "latency_s": 26.8,
+        "usage": {
+          "prompt_tokens": 793,
+          "completion_tokens": 8000,
+          "total_tokens": 8793,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 768
+          },
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 5835,
+            "audio_tokens": 0,
+            "reasoning_tokens": 7661,
+            "rejected_prediction_tokens": 9327
+          }
+        },
+        "raw": "[{\"ingredient_id\":\"glass_noodles_dry\",\"amount\":65,\"band_low\":42,\"band_high\":88},{\"ingredient_id\":\"chicken\",\"amount\":140,\"band_low\":100,\"band_high\":180},{\"ingredient_id\":\"soy_sauce_marinade\",\"amount\":5,\"band_low\":3,\"band_high\":7},{\"ingredient_id\":\"garlic\",\"amount\":3,\"band_low\":1.8,\"band_high\":4.2},{\"ingredient_id\":\"onion\",\"amount\":0.5,\"band_low\":0.3,\"band_high\":0.7},{\"ingredient_id\":\"eggs\",\"amount\":2,\"band_low\":2,\"band_high\":2},{\"ingredient_id\":\"cabbage\",\"amount\":1.3,\"band_low\":0.8,\"band_high\":1.8},{\"ingredient_id\":\"carrots\",\"amount\":0.4,\"band_low\":0.25,\"band_high\":0.55},{\"ingredient_id\":\"white_pepper\",\"amount\":0.25,\"band_low\":0.05,\"band_high\":0.5},{\"ingredient_id\":\"tomato\",\"amount\":1,\"band_low\":1,\"band_high\":1},{\"ingredient_id\":\"green_onion\",\"amount\":1,\"band_low\":1,\"band_high\":1},{\"ingredient_id\":\"oyster_sauce\",\"amount\":18,\"band_low\":9,\"band_high\":27},{\"ingredient_id\":\"soy_sauce\",\"amount\":8,\"band_low\":4,\"band_high\":12},{\"ingredient_id\":\"golden_mountain_sauce\",\"amount\":7,\"band_low\":3.5,\"band_high\":10.5},{\"ingredient_id\":\""
+      },
+      "task_c_strike": {
+        "format_ok": true,
+        "decisions_correct": 5,
+        "decisions_total": 6,
+        "publish": [
+          "chicken",
+          "eggs"
+        ],
+        "strike": [
+          "cabbage",
+          "oyster_sauce",
+          "water",
+          "white_pepper"
+        ],
+        "latency_s": 13.4,
+        "usage": {
+          "prompt_tokens": 441,
+          "completion_tokens": 4153,
+          "total_tokens": 4594,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 384
+          },
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 3044,
+            "audio_tokens": 0,
+            "reasoning_tokens": 4109,
+            "rejected_prediction_tokens": 4719
+          }
+        },
+        "raw": "{\"publish\": [\"eggs\", \"chicken\"], \"strike\": [\"oyster_sauce\", \"white_pepper\", \"water\", \"cabbage\"]}"
+      },
+      "total_usage": {
+        "prompt_tokens": 1872,
+        "completion_tokens": 15507
+      }
+    },
+    {
+      "label": "pollinations-gpt-5.5",
+      "model": "openai/gpt-5.5",
+      "base_url": "https://gen.pollinations.ai/v1",
+      "task_a_completion": {
+        "format_ok": false,
+        "error": "HTTPError: HTTP Error 401: Unauthorized"
+      },
+      "task_b_calibration": {
+        "format_ok": false,
+        "error": "HTTPError: HTTP Error 401: Unauthorized"
+      },
+      "task_c_strike": {
+        "format_ok": false,
+        "error": "HTTPError: HTTP Error 401: Unauthorized"
+      },
+      "total_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0
+      }
+    },
+    {
+      "label": "pollinations-deepseek-v4.1-flash",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "base_url": "https://gen.pollinations.ai/v1",
+      "task_a_completion": {
+        "format_ok": false,
+        "error": "RemoteDisconnected: Remote end closed connection without response"
+      },
+      "task_b_calibration": {
+        "format_ok": false,
+        "error": "HTTPError: HTTP Error 401: Unauthorized"
+      },
+      "task_c_strike": {
+        "format_ok": false,
+        "error": "RemoteDisconnected: Remote end closed connection without response"
+      },
+      "total_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0
+      }
+    },
+    {
+      "label": "mistral-magistral-medium",
+      "model": "magistral-medium-latest",
+      "base_url": "https://api.mistral.ai/v1",
+      "task_a_completion": {
+        "format_ok": false,
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "task_b_calibration": {
+        "format_ok": false,
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "task_c_strike": {
+        "format_ok": false,
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "total_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0
+      }
+    },
+    {
+      "label": "mistral-medium-3.5",
+      "model": "mistral-medium-3.5",
+      "base_url": "https://api.mistral.ai/v1",
+      "task_a_completion": {
+        "format_ok": false,
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "task_b_calibration": {
+        "format_ok": false,
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "task_c_strike": {
+        "format_ok": false,
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "total_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0
+      }
+    }
+  ],
+  "pipeline_reference_task_b": {
+    "ingredients_scored": 16,
+    "within_bar": 12,
+    "bands_containing_truth": 14,
+    "mean_abs_error_percent": 21.3
+  },
+  "baseten_rerun_note": "Re-run after fixing reasoning_content fallback and raising max_tokens 3000 -> 8000; first run hit the cap mid-reasoning on tasks A and B."
+}
