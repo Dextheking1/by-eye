@@ -1,0 +1,182 @@
+{
+  "amounts": [
+    {
+      "amount": 48.0,
+      "band_high": 57.6,
+      "band_low": 38.4,
+      "evidence_frame": "frame_000120",
+      "ingredient_id": "glass_noodles_dry",
+      "note": "dry bundle fills the small bowl, compared against hand width",
+      "publishable": true,
+      "support": "anchored",
+      "unit": "g"
+    },
+    {
+      "amount": 140.0,
+      "band_high": 168.0,
+      "band_low": 112.0,
+      "evidence_frame": "frame_000240",
+      "ingredient_id": "chicken",
+      "note": "sliced pieces in one layer on the board",
+      "publishable": true,
+      "support": "anchored",
+      "unit": "g"
+    },
+    {
+      "amount": 5.0,
+      "band_high": 6.0,
+      "band_low": 4.0,
+      "evidence_frame": "frame_000260",
+      "ingredient_id": "soy_sauce_marinade",
+      "note": "one spoon over the chicken",
+      "publishable": true,
+      "support": "anchored",
+      "unit": "ml"
+    },
+    {
+      "amount": 3.0,
+      "band_high": 4.0,
+      "band_low": 2.0,
+      "evidence_frame": "frame_000310",
+      "ingredient_id": "garlic",
+      "note": "small pile, count is a guess, cloves vary",
+      "publishable": true,
+      "support": "counted",
+      "unit": "cloves"
+    },
+    {
+      "amount": 0.5,
+      "band_high": 0.75,
+      "band_low": 0.25,
+      "evidence_frame": "frame_000315",
+      "ingredient_id": "onion",
+      "note": "a handful of strips, reads as half a small onion",
+      "publishable": true,
+      "support": "counted",
+      "unit": "whole"
+    },
+    {
+      "amount": 2.0,
+      "band_high": 3.0,
+      "band_low": 1.0,
+      "evidence_frame": "frame_000410",
+      "ingredient_id": "eggs",
+      "note": "two eggs cracked into the pan, counted directly",
+      "publishable": true,
+      "support": "counted",
+      "unit": "count"
+    },
+    {
+      "amount": 1.3,
+      "band_high": 1.56,
+      "band_low": 1.04,
+      "evidence_frame": "frame_000520",
+      "ingredient_id": "cabbage",
+      "note": "two loose handfuls",
+      "publishable": true,
+      "support": "anchored",
+      "unit": "cup"
+    },
+    {
+      "amount": 0.4,
+      "band_high": 0.48,
+      "band_low": 0.32,
+      "evidence_frame": "frame_000525",
+      "ingredient_id": "carrots",
+      "note": "one small handful of slices",
+      "publishable": true,
+      "support": "anchored",
+      "unit": "cup"
+    },
+    {
+      "amount": 0.25,
+      "band_high": 0.375,
+      "band_low": 0.125,
+      "evidence_frame": "frame_000700",
+      "ingredient_id": "white_pepper",
+      "note": "one shake over the noodles, hard to read",
+      "publishable": false,
+      "support": "weak",
+      "unit": "tsp"
+    },
+    {
+      "amount": 1.0,
+      "band_high": 2.0,
+      "band_low": 0.0,
+      "evidence_frame": "frame_000900",
+      "ingredient_id": "tomato",
+      "note": "one tomato in wedges, counted directly",
+      "publishable": true,
+      "support": "counted",
+      "unit": "count"
+    },
+    {
+      "amount": 1.0,
+      "band_high": 2.0,
+      "band_low": 0.0,
+      "evidence_frame": "frame_000905",
+      "ingredient_id": "green_onion",
+      "note": "one stalk chopped over the top",
+      "publishable": true,
+      "support": "counted",
+      "unit": "count"
+    },
+    {
+      "amount": 18.0,
+      "band_high": 23.4,
+      "band_low": 12.6,
+      "evidence_frame": "frame_000640",
+      "ingredient_id": "oyster_sauce",
+      "note": "sauce bowl pour, stream width plus duration",
+      "publishable": true,
+      "support": "flow",
+      "unit": "ml"
+    },
+    {
+      "amount": 8.0,
+      "band_high": 10.4,
+      "band_low": 5.6,
+      "evidence_frame": "frame_000645",
+      "ingredient_id": "soy_sauce",
+      "note": "sauce bowl pour",
+      "publishable": true,
+      "support": "flow",
+      "unit": "ml"
+    },
+    {
+      "amount": 7.0,
+      "band_high": 9.1,
+      "band_low": 4.9,
+      "evidence_frame": "frame_000650",
+      "ingredient_id": "golden_mountain_sauce",
+      "note": "sauce bowl pour",
+      "publishable": true,
+      "support": "flow",
+      "unit": "ml"
+    },
+    {
+      "amount": 9.0,
+      "band_high": 13.5,
+      "band_low": 4.5,
+      "evidence_frame": "frame_000655",
+      "ingredient_id": "sugar",
+      "note": "one heaped spoon, heap is the uncertainty",
+      "publishable": false,
+      "support": "weak",
+      "unit": "ml"
+    },
+    {
+      "amount": 45.0,
+      "band_high": 67.5,
+      "band_low": 22.5,
+      "evidence_frame": "frame_000800",
+      "ingredient_id": "water",
+      "note": "splash from the bowl rinse, weakest read in the set",
+      "publishable": false,
+      "support": "weak",
+      "unit": "ml"
+    }
+  ],
+  "client": "stub",
+  "dish": "Pad Woon Sen (glass noodle stir fry)"
+}
