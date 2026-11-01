@@ -11,12 +11,13 @@ One interface, several implementations:
   ~/workspace/free-tiers/keys.env as BASETEN_API_KEY, or from the
   BASETEN_API_KEY environment variable. Key values are never printed
   and never stored in this repo.
-- OpenAICompatClient: a generic OpenAI-compatible chat client for the
-  reasoning pass. Base URL, model id and key name are parameters (or
-  BY_EYE_* environment variables), so any provider that speaks
-  /chat/completions can fill the reasoning slot without new code:
-  Pollinations, Mistral, OpenRouter, Nebius Token Factory. Named
-  presets live in get_client.
+- OpenAICompatClient: a generic OpenAI-compatible chat client kept
+  only as a dev comparison harness. Base URL, model id and key name
+  are explicit constructor parameters. It is not reachable from
+  get_client, the CLI, the app or the server, and no provider presets
+  or environment-driven fallback ship in this module. Its only
+  in-tree caller is bakeoff.py (the 2026-10-27 dev bake-off), which
+  constructs it directly with its own provider parameters.
 - MetaModelClient: the hosted Meta Model API (base
   https://api.meta.ai/v1, key META_API_KEY in keys.env). SAM 3.1
   segmentation is the measurement evidence pass (POST /v1/responses;
@@ -219,14 +220,17 @@ class BasetenClient(ModelClient):
 
 
 class OpenAICompatClient(ModelClient):
-    """Generic OpenAI-compatible chat client for the reasoning pass.
+    """Generic OpenAI-compatible chat client, dev harness only.
 
-    Text in, text out: this client fills the reasoning slot (estimating
-    withheld amounts, calibrating bands, the adversarial strike pass),
-    not the vision frame-read slot, so read_ingredients is not
-    implemented. The key, when the provider needs one, is referenced by
-    NAME and resolved through load_key; the value never lands in this
-    repo or in any log.
+    Retained solely so bakeoff.py (the dev comparison harness) can
+    construct provider clients directly with explicit parameters.
+    This class is not a product runtime client: get_client never
+    returns it, the CLI offers no mode that builds it, and the app
+    and server never call it. Text in, text out: it fills a reasoning
+    slot in the harness, not the vision frame-read slot, so
+    read_ingredients is not implemented. The key, when the provider
+    needs one, is referenced by NAME and resolved through load_key;
+    the value never lands in this repo or in any log.
     """
 
     def __init__(
@@ -302,8 +306,8 @@ class OpenAICompatClient(ModelClient):
 
     def read_ingredients(self, frame_refs: list[str]) -> MeasurementRead:
         raise NotImplementedError(
-            "OpenAICompatClient is the text reasoning pass; frame reads "
-            "belong to a vision client (Baseten today)."
+            "OpenAICompatClient is a dev-harness text client; frame reads "
+            "belong to a vision client (MetaModelClient)."
         )
 
 
@@ -458,10 +462,9 @@ class MetaModelClient(ModelClient):
             return json.loads(response.read())
 
     # -- SAM 3.1 ---------------------------------------------------
-    def segment(self, frame_path: str | Path, prompt: str) -> list[SegmentObject]:
-        """Segment one frame with one noun-phrase prompt."""
-        path = Path(frame_path)
-        data = base64.b64encode(path.read_bytes()).decode()
+    def segment_raw_bytes(self, data: bytes, prompt: str) -> str:
+        """Run SAM 3.1 on one in-memory JPEG, return the raw output text."""
+        encoded = base64.b64encode(data).decode()
         body = self._post_json(
             "/responses",
             {
@@ -474,7 +477,7 @@ class MetaModelClient(ModelClient):
                             {"type": "input_text", "text": prompt},
                             {
                                 "type": "input_image",
-                                "image_url": f"data:image/jpeg;base64,{data}",
+                                "image_url": f"data:image/jpeg;base64,{encoded}",
                             },
                         ],
                     }
@@ -486,7 +489,19 @@ class MetaModelClient(ModelClient):
             for part in item.get("content", []):
                 if part.get("type") == "output_text":
                     text += part.get("text", "")
-        return parse_sam_output(text)
+        return text
+
+    def segment_raw(self, frame_path: str | Path, prompt: str) -> str:
+        """Run SAM 3.1 on one frame, return the raw output text.
+
+        segment() parses this into boxes and areas; plate mode needs
+        the unparsed text so it can decode full mask rasters.
+        """
+        return self.segment_raw_bytes(Path(frame_path).read_bytes(), prompt)
+
+    def segment(self, frame_path: str | Path, prompt: str) -> list[SegmentObject]:
+        """Segment one frame with one noun-phrase prompt."""
+        return parse_sam_output(self.segment_raw(frame_path, prompt))
 
     @staticmethod
     def prompt_for_frame(frame_ref: str) -> str:
@@ -732,52 +747,18 @@ class MetaModelClient(ModelClient):
         return base64.b64decode(body["data"][0]["b64_json"])
 
 
-# Named presets for the reasoning slot. Model ids can be overridden
-# with the BY_EYE_MODEL environment variable at construction time via
-# get_client; key names refer to ~/workspace/free-tiers/keys.env.
-OPENAI_PRESETS = {
-    # Anonymous tier answers today for some models; paid_only models
-    # need a Pollinations key (POLLINATIONS_API_KEY) when one lands.
-    "pollinations": {
-        "base_url": "https://gen.pollinations.ai/v1",
-        "model": "openai/gpt-5.5",
-        # Optional: anonymous tier works for some models today; when a
-        # POLLINATIONS_API_KEY lands in keys.env it is used instead.
-        "key_name": "POLLINATIONS_API_KEY",
-        "key_required": False,
-    },
-    "mistral": {
-        "base_url": "https://api.mistral.ai/v1",
-        "model": "magistral-medium-latest",
-        "key_name": "MISTRAL_API_KEY",
-    },
-    "openrouter": {
-        "base_url": "https://openrouter.ai/api/v1",
-        "model": "anthropic/claude-opus-5.5",
-        "key_name": "OPENROUTER_API_KEY",
-    },
-    "nebius": {
-        "base_url": "https://api.tokenfactory.nebius.com/v1",
-        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-        "key_name": "NEBIUS_API_KEY",
-    },
-    "baseten-text": {
-        "base_url": BASETEN_BASE_URL,
-        "model": BASETEN_MODEL,
-        "key_name": "BASETEN_API_KEY",
-    },
-}
-
-
 def get_client(mode: str) -> ModelClient:
     """Resolve a mode name to a client.
 
-    'auto' picks Baseten when a key exists and stub otherwise, so the
-    pipeline runs today and upgrades itself the moment the key lands.
-    'openai' builds the generic client from BY_EYE_BASE_URL,
-    BY_EYE_MODEL and BY_EYE_KEY_NAME environment variables. A preset
-    name from OPENAI_PRESETS builds the generic client for that
-    provider, with BY_EYE_MODEL overriding the preset model id.
+    'auto' prefers the hosted Meta Model API: it returns
+    MetaModelClient when META_API_KEY exists and StubClient
+    otherwise. It never returns BasetenClient silently; Baseten is
+    reachable only through the explicit 'baseten' mode. The non-Meta
+    provider presets (Pollinations, Mistral, OpenRouter, Nebius) and
+    the generic BY_EYE_* environment fallback were removed on
+    2026-11-01: no non-Meta model is reachable from this function.
+    OpenAICompatClient survives only as a directly constructed dev
+    harness class for bakeoff.py and is never built here.
     """
     if mode == "stub":
         return StubClient()
@@ -786,30 +767,7 @@ def get_client(mode: str) -> ModelClient:
     if mode == "meta":
         return MetaModelClient()
     if mode == "auto":
-        if load_key("BASETEN_API_KEY"):
-            return BasetenClient()
+        if load_key("META_API_KEY"):
+            return MetaModelClient()
         return StubClient()
-    if mode == "openai":
-        base_url = os.environ.get("BY_EYE_BASE_URL")
-        model = os.environ.get("BY_EYE_MODEL")
-        if not base_url or not model:
-            raise ValueError(
-                "mode 'openai' needs BY_EYE_BASE_URL and BY_EYE_MODEL "
-                "(BY_EYE_KEY_NAME optional for keyless providers)."
-            )
-        return OpenAICompatClient(
-            base_url=base_url,
-            model=model,
-            key_name=os.environ.get("BY_EYE_KEY_NAME") or None,
-            name="openai-env",
-        )
-    if mode in OPENAI_PRESETS:
-        preset = OPENAI_PRESETS[mode]
-        return OpenAICompatClient(
-            base_url=preset["base_url"],
-            model=os.environ.get("BY_EYE_MODEL") or preset["model"],
-            key_name=preset["key_name"],
-            name=mode,
-            key_required=preset.get("key_required", True),
-        )
     raise ValueError(f"unknown mode: {mode}")

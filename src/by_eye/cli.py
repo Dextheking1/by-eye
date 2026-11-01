@@ -73,7 +73,7 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_run = sub.add_parser("run", help="frames in, estimate out")
-    p_run.add_argument("--mode", choices=["auto", "stub", "baseten", "meta"], default="auto")
+    p_run.add_argument("--mode", choices=["auto", "stub", "baseten", "meta"], default="meta")
     p_run.add_argument("--frames", default=None, help="video file or directory of frames")
     p_run.add_argument("--dish", default=DEFAULT_DISH)
     p_run.add_argument("--narration", default=None, help="narration WAV to transcribe with Muse Voice and attach to the estimate")

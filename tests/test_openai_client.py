@@ -77,22 +77,24 @@ def test_missing_required_key_raises(monkeypatch, tmp_path):
         )
 
 
-def test_optional_key_client_builds_without_key(monkeypatch, tmp_path):
+def test_preset_modes_are_removed(monkeypatch, tmp_path):
+    # The non-Meta provider presets were removed from get_client on
+    # 2026-11-01. None of them may resolve to a client any more.
     monkeypatch.setattr("by_eye.clients.KEYS_ENV_PATH", tmp_path / "absent.env")
-    monkeypatch.delenv("POLLINATIONS_API_KEY", raising=False)
-    client = get_client("pollinations")
-    assert client.base_url == "https://gen.pollinations.ai/v1"
-    assert client.model == "openai/gpt-5.5"
+    for mode in ("pollinations", "mistral", "openrouter", "nebius", "baseten-text"):
+        with pytest.raises(ValueError):
+            get_client(mode)
 
 
-def test_env_mode_builds_generic_client(monkeypatch):
+def test_env_mode_is_removed(monkeypatch):
+    # The generic BY_EYE_* environment fallback was removed with the
+    # presets: setting those variables must not build a client.
     monkeypatch.setenv("BY_EYE_BASE_URL", "https://router.test/v1")
     monkeypatch.setenv("BY_EYE_MODEL", "anthropic/claude-opus-5.5")
     monkeypatch.setenv("BY_EYE_KEY_NAME", "OPENROUTER_API_KEY")
     monkeypatch.setenv("OPENROUTER_API_KEY", "test-key-not-real")
-    client = get_client("openai")
-    assert client.base_url == "https://router.test/v1"
-    assert client.model == "anthropic/claude-opus-5.5"
+    with pytest.raises(ValueError):
+        get_client("openai")
 
 
 def test_read_ingredients_not_implemented_for_text_client():

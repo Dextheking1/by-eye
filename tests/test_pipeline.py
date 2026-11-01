@@ -65,8 +65,18 @@ def test_score_reports_bar_and_band_honesty():
 def test_auto_mode_falls_back_to_stub_without_key(tmp_path, monkeypatch):
     monkeypatch.setattr("by_eye.clients.KEYS_ENV_PATH", tmp_path / "absent.env")
     monkeypatch.delenv("BASETEN_API_KEY", raising=False)
+    monkeypatch.delenv("META_API_KEY", raising=False)
     assert get_client("auto").name == "stub"
     assert load_key("BASETEN_API_KEY") is None
+
+
+def test_auto_mode_prefers_meta_over_baseten(tmp_path, monkeypatch):
+    keys = tmp_path / "keys.env"
+    keys.write_text("META_API_KEY=test-meta\nBASETEN_API_KEY=test-baseten\n")
+    monkeypatch.setattr("by_eye.clients.KEYS_ENV_PATH", keys)
+    monkeypatch.delenv("META_API_KEY", raising=False)
+    monkeypatch.delenv("BASETEN_API_KEY", raising=False)
+    assert get_client("auto").name == "meta"
 
 
 def test_ground_truth_matches_published_recipe():

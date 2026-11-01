@@ -1,0 +1,51 @@
+/* Web faces for By Eye, under the exact family names the theme uses.
+   In production these files ship with the site (or a font CDN); in
+   this sandbox build they are linked in from fonts already on disk,
+   because the sandbox blocks font downloads. */
+
+@font-face {
+  font-family: "Inter_400Regular";
+  src: url("/fonts/inter-roman-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter_500Medium";
+  src: url("/fonts/inter-roman-latin.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter_600SemiBold";
+  src: url("/fonts/inter-roman-latin.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter_700Bold";
+  src: url("/fonts/inter-roman-latin.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fraunces_600SemiBold";
+  src: url("/fonts/display-serif-semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background-color: #faf7f2;
+}
