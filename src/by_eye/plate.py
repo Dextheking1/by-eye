@@ -195,6 +195,31 @@ def format_band(low: float, high: float, unit: str) -> str:
     return f"{low:g} to {high:g} {unit}"
 
 
+_COVERAGE_LEAD = re.compile(r"^covers?\s+[^,.;]+[,.;]\s+", re.IGNORECASE)
+_COVERAGE_ONLY = re.compile(
+    r"^covers?\s+[^,.;]+\b(?:photo|plate|frame)\.?$", re.IGNORECASE
+)
+
+
+def strip_coverage_lead(note: str) -> str:
+    """Remove a leading coverage clause from a measurement note.
+
+    The app renders the measured SAM coverage on its own line above
+    the note, and the measurement prompt invites the model to anchor
+    its note on coverage too, so a note like "covers about a tenth
+    of the photo, a palm-sized piece" repeated the coverage inside
+    every result row. When the coverage line is shown, drop the
+    repeated clause and keep the rest of the note. A note that is
+    only a coverage clause becomes empty.
+    """
+    stripped = _COVERAGE_LEAD.sub("", note, count=1)
+    if stripped != note:
+        return stripped
+    if _COVERAGE_ONLY.match(note):
+        return ""
+    return note
+
+
 def shape_plate_response(
     items: list[PlateItem],
     image_width: int,
@@ -228,7 +253,9 @@ def shape_plate_response(
             ),
             "support": item.support,
             "publishable": item.publishable,
-            "note": item.note,
+            "note": (
+                strip_coverage_lead(item.note) if coverage is not None else item.note
+            ),
             "coverage_percent": (
                 round(coverage * 100, 1) if coverage is not None else None
             ),
